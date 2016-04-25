@@ -10,6 +10,7 @@ var TimeAgo = React.createClass({
   mixins: [TimerMixin],
   propTypes: {
     time: PropTypes.string.isRequired,
+    unixTimeStamp: PropTypes.number,
     interval: PropTypes.number,
     hideAgo: PropTypes.bool
   },
@@ -37,9 +38,17 @@ var TimeAgo = React.createClass({
   },
 
   render() {
+    if(this.props.unixTimeStamp){
     return (
+      <Text {...this.props}>{moment.unix(this.props.unixTimeStamp).fromNow(this.props.hideAgo)}</Text>
+    );
+    }
+    else if(this.props.time){
+      return (
       <Text {...this.props}>{moment(this.props.time).fromNow(this.props.hideAgo)}</Text>
     );
+    }
+    
   }
 });
 
